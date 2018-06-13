@@ -1,6 +1,6 @@
-# Event counts per project - from Sentry to Databox
+# Event counts per project
 
-Extract Sentry event counts per project via API and load it to Databox.
+Extract [Sentry](https://sentry.io/) event counts per project via API and load it to [Databox](https://databox.com).
 
 ## Getting Started
 
