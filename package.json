@@ -1,0 +1,27 @@
+{
+  "name": "sentry2databox",
+  "version": "0.0.1",
+  "description": "Push Sentry event counts per project to Databox",
+  "main": "index.js",
+  "scripts": {
+    "test": "none"
+  },
+  "repository": {
+    "type": "git",
+    "url": "none"
+  },
+  "keywords": [
+    "sentry",
+    "databox",
+    "events"
+  ],
+  "author": "vlada.petrovic@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "databox": "^2.0.1",
+    "request": "^2.85.0"
+  },
+  "engines": {
+    "node": "8.x.x"
+  }
+}
