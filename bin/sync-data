@@ -1,0 +1,62 @@
+#!/usr/bin/env node
+
+const sentry = require("../src/sentry");
+const databox = require("../src/databox");
+
+const errorAndExit = function(message) {
+  console.log(message);
+  process.exit();
+}
+const required = ['SENTRY_TOKEN', 'SENTRY_ORG', 'DATABOX_TOKEN'];
+const optional = {'LAST_X_DAYS': 1};
+
+// validate required env parameters
+required.forEach(function(req) {
+  if (process.env[req] === undefined) {
+    errorAndExit(req + " is required.");
+  }
+});
+
+// set default values for optional env parameters
+for (opt in optional) {
+  if (process.env[opt] === undefined) {
+    process.env[opt] = optional[opt];
+  }
+}
+
+// custom validation
+if (process.env.LAST_X_DAYS < 1 || process.env.LAST_X_DAYS > 365) {
+  errorAndExit("LAST_X_DAYS should be between 1 and 365");
+}
+
+// calculate since parameter
+const now = new Date();
+const since = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate() - process.env.LAST_X_DAYS, 0, 0, 0, 0) / 1000;
+
+// format payload so Databox SDK can consume it
+const transform = function(sentryEvents) {
+  payload = [];
+  for (let project in sentryEvents) {
+    for (let date in sentryEvents[project]) {
+      payload.push({
+        "date": date,
+        "key": "errors",
+        "value": sentryEvents[project][date],
+        "attributes": {
+            "project": project
+        }
+      });
+    }
+  }
+  return payload;
+};
+
+const reportStatus = function(response) {
+  console.log(response);
+}
+
+sentry.getEventsPerProject(since)
+  .then(transform)
+  .then(databox.load)
+  .then(reportStatus)
+  .catch(reportStatus);
