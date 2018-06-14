@@ -17,7 +17,7 @@ These instructions will get you a copy of the project up and running on your loc
 Copy code from Github to local machine
 
 ```
-git pull https://github.com/databox/sentry2databox
+git clone https://github.com/databox/sentry2databox
 ```
 
 Install dependencies
@@ -30,8 +30,21 @@ npm install
 Sync data
 
 ```
+export SENTRY_TOKEN=<your-sentry-token>
+export SENTRY_ORG=<your-sentry-organization>
+export DATABOX_TOKEN=<your-databox-token>
+
 ./bin/sync-data
 ```
+
+## Environment variables
+
+name | description | required
+- | -
+SENTRY_TOKEN | Sentry API token | yes
+SENTRY_ORG | Sentry organization slug | yes
+DATABOX_TOKEN | Databox data source token | yes
+LAST_X_DAYS | Retrieve data for last X days. | No. Default: 1
 
 ## Deployment
 
