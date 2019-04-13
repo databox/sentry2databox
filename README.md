@@ -39,12 +39,12 @@ export DATABOX_TOKEN=<your-databox-token>
 
 ## Environment variables
 
-name | description | required
-- | -
-SENTRY_TOKEN | Sentry API token | yes
-SENTRY_ORG | Sentry organization slug | yes
-DATABOX_TOKEN | Databox data source token | yes
-LAST_X_DAYS | Retrieve data for last X days. | No. Default: 1
+| name            | description                    | required       |
+| --------------- | ------------------------------ | -------------- |
+| `SENTRY_TOKEN`  | Sentry API token               | yes            |
+| `SENTRY_ORG`    | Sentry organization slug       | yes            |
+| `DATABOX_TOKEN` | Databox data source token      | yes            |
+| `LAST_X_DAYS`   | Retrieve data for last X days. | No. Default: 1 |
 
 ## Deployment
 
